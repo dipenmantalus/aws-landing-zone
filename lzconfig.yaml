@@ -1,6 +1,6 @@
 global:
   home_region: "ap-southeast-2"                          # Home region for AWS LZ deployment 
-  lz_state_bucket: "aws-lz-state-bucket"                 # Name for AWS LZ Terraform State bucket
+  lz_state_bucket: "aws-lz-state-bucket-851725640343-ap-southeast-2"                 # Name for AWS LZ Terraform State bucket
   lz_state_locking_dynamodb_table: "aws-lz-state-lock"   # Name of DyanmoDB table for terraform state Locking
   switch_role_to_assume: "OrganizationAccountAccessRole" # Name of the Role to Assume to Deploy AWS LZ services in Accounts
 bootstrap:
@@ -10,8 +10,8 @@ bootstrap:
   cicd:
     git_repo_id: "dipenmantalus/aws-landing-zone"            # AWS LZ Github Repository ID
     git_repo_name: "aws-landing-zone"                    # AWS LZ Github Repository Name
-    git_branch: "custo-config"                                   # AWS LZ Github Repository Branch
-    s3_bucket_prefix: "aws-landing-zone"                 # S3 Bucket Prefix for AWS LZ Terraform State Bucket
+    git_branch: "custom-config"                                   # AWS LZ Github Repository Branch
+    s3_bucket_prefix: "aws-landing-zone-dp-851725640343"                 # S3 Bucket Prefix for AWS LZ Terraform State Bucket
 org:
   common:
     target_regions:
@@ -21,7 +21,7 @@ org:
       default_retention_mode: "COMPLIANCE"               # Object Lock Retention Mode [Only applicable if object_lock_enabled is set to true ]
       default_retention_days: 11                         # Number of days that you want to specify for the default Object Lock retention period. [Only applicable if object_lock_enabled is set to true ]
   logging:
-    s3_bucket_prefix: "logging-aws-landing-zone"         # s3 Bucket Prefix for all Logging Buckets Created in AWS LZ
+    s3_bucket_prefix: "logging-aws-landing-zone-dp-851725640343"         # s3 Bucket Prefix for all Logging Buckets Created in AWS LZ
     standard_ia_days: 30                                 # Retention to move s3 object to Standard IA
     glacier_days: 60                                     # Retention to move s3 object from Standard IA To Glacier
   shared_services:
