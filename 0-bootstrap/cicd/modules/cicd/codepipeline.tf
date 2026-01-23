@@ -1,7 +1,7 @@
 resource "aws_codepipeline" "codepipeline" {
-  for_each = toset(var.branches)
+  for_each = toset(local.filtered_branches)
   name     = "${var.git_repository_name}-${each.value}"
-  role_arn = aws_iam_role.codepipeline_role.arn
+  role_arn = "arn:aws:iam::${local.account_id}:role/${local.cp_role_name}"
 
   artifact_store {
     location = aws_s3_bucket.codepipeline_bucket.bucket
@@ -10,7 +10,6 @@ resource "aws_codepipeline" "codepipeline" {
 
   stage {
     name = "Source"
-
     action {
       name             = "Source-${var.git_repository_name}"
       category         = "Source"
@@ -18,7 +17,6 @@ resource "aws_codepipeline" "codepipeline" {
       provider         = "CodeStarSourceConnection"
       version          = "1"
       output_artifacts = ["source_output"]
-
       configuration = {
         "DetectChanges"      = "false"
         ConnectionArn        = aws_codestarconnections_connection.aws-lz-gh.arn

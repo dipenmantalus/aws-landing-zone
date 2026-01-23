@@ -1,10 +1,11 @@
 resource "aws_codebuild_project" "codebuild_deployment" {
-  for_each       = var.code_pipeline_build_stages
-  name           = "${var.git_repository_name}-${each.key}"
-  description    = "Code build project for ${var.git_repository_name} ${each.key} stage"
-  build_timeout  = "120"
-  service_role   = aws_iam_role.codebuild_role.arn
-  encryption_key = aws_kms_key.codebuild-key.arn
+  for_each      = local.filtered_build_stages
+  name          = "${var.git_repository_name}-${each.key}"
+  description   = "Code build project for ${var.git_repository_name} ${each.key} stage"
+  build_timeout = "120"
+
+  service_role   = "arn:aws:iam::${local.account_id}:role/${local.cb_role_name}"
+  encryption_key = local.codebuild_kms_key_arn
 
   artifacts {
     type = "CODEPIPELINE"
@@ -22,19 +23,15 @@ resource "aws_codebuild_project" "codebuild_deployment" {
     privileged_mode             = var.cb_priviledged_mode
     compute_type                = var.codebuild_node_size
 
-    # Generate block if variable is set
     dynamic "environment_variable" {
       for_each = var.proxy_config["HTTP_PROXY"] != "" ? var.proxy_config : {}
       content {
         name  = environment_variable.key
-        value = environment_variable.value #export HTTP_PROXY=http://proxy.ccc-ng-1.eu-west-1.aws.cloud.bmw:8080
+        value = environment_variable.value
       }
     }
   }
 
-  # Generate block if variable is set, this is a workaround to have a dynamic block set
-  # At the moment is necessary to keep split to have a same type in the object
-  # otherwise dynamic block cannot work
   dynamic "vpc_config" {
     for_each = var.priv_vpc_config["vpc_id"] != "" ? [var.priv_vpc_config["vpc_id"]] : []
     content {
@@ -49,7 +46,6 @@ resource "aws_codebuild_project" "codebuild_deployment" {
       group_name  = "log-group"
       stream_name = "log-stream"
     }
-
     s3_logs {
       status   = "ENABLED"
       location = "${aws_s3_bucket.codebuild_bucket.id}/${each.key}/build_logs"
@@ -63,4 +59,3 @@ resource "aws_codebuild_project" "codebuild_deployment" {
 
   tags = var.custom_tags
 }
-

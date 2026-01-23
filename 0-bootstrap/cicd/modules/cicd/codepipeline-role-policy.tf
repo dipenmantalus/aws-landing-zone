@@ -1,5 +1,6 @@
 resource "aws_iam_role" "codepipeline_role" {
-  name = local.codepipeline_role_name
+  count = local.cp_role_exists ? 0 : 1
+  name  = "codepipeline-${var.git_repository_name}-Role"
 
   assume_role_policy = <<EOF
 {
@@ -7,28 +8,24 @@ resource "aws_iam_role" "codepipeline_role" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Principal": {
-        "Service": "codepipeline.amazonaws.com"
-      },
+      "Principal": { "Service": "codepipeline.amazonaws.com" },
       "Action": "sts:AssumeRole"
     }
   ]
 }
 EOF
-  # tags               = var.custom_tags
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = local.codepipeline_policy_name
-  role = aws_iam_role.codepipeline_role.id
+  name = "codepipeline-${var.git_repository_name}-policy"
+  role = local.cp_role_name
 
   policy = templatefile("${path.module}/templates/codepipeline-role-policy.json.tpl", {
     codepipeline_bucket_arn = aws_s3_bucket.codepipeline_bucket.arn
   })
-
 }
 
 resource "aws_iam_role_policy_attachment" "codepipeline_codecommit" {
-  role       = aws_iam_role.codepipeline_role.name
+  role       = local.cp_role_name
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitFullAccess"
 }

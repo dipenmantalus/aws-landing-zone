@@ -17,3 +17,9 @@ output "codebuild_s3bucket" {
   description = "Name of the  Codebuild bucket"
   value       = module.setup_cicd_account.codebuild_s3_bucket
 }
+
+# Added to verify the account ID used in this stack
+output "target_account_id" {
+  description = "The Account ID where the CI/CD stack was deployed"
+  value       = local.cicd_account_id
+}
