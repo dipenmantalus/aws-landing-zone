@@ -106,7 +106,7 @@ org:
           scps: []                                       # List of SCPS to apply for Network Hub Account
         dns_hub_account:
           name: "DNS Hub"                                # Name of the DNS HUB Account
-          email:  "dipenparekh225+9@gmail.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+29@gmail.com"          # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for DNS Hub Account
         high_trust_interconnect_account:
           name: "High Trust Interconnect"                # Name of the High Trust Interconnect Account
