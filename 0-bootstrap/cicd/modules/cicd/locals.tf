@@ -6,6 +6,6 @@ locals {
   }
   codepipeline_role_name   = "codepipeline-${var.git_repository_name}-Role"
   codepipeline_policy_name = "codepipeline-policy-${var.git_repository_name}"
-  region                   = var.region != "" ? var.region : data.aws_region.current.name
+  region                   = var.region != "" ? var.region : data.aws_region.current.id
   account_id               = var.account_id != "" ? var.account_id : data.aws_caller_identity.current.account_id
 }

@@ -38,13 +38,13 @@ data "aws_iam_policy_document" "cloudwatch_delivery_policy" {
   statement {
     sid       = "AWSCloudTrailCreateLogStream2014110"
     actions   = ["logs:CreateLogStream"]
-    resources = ["arn:aws:logs:${data.aws_region.current.name}:${local.account_id_management}:log-group:${aws_cloudwatch_log_group.cloudtrail_events[0].name}:log-stream:*"]
+    resources = ["arn:aws:logs:${data.aws_region.current.id}:${local.account_id_management}:log-group:${aws_cloudwatch_log_group.cloudtrail_events[0].name}:log-stream:*"]
   }
 
   statement {
     sid       = "AWSCloudTrailPutLogEvents20141101"
     actions   = ["logs:PutLogEvents"]
-    resources = ["arn:aws:logs:${data.aws_region.current.name}:${local.account_id_management}:log-group:${aws_cloudwatch_log_group.cloudtrail_events[0].name}:log-stream:*"]
+    resources = ["arn:aws:logs:${data.aws_region.current.id}:${local.account_id_management}:log-group:${aws_cloudwatch_log_group.cloudtrail_events[0].name}:log-stream:*"]
   }
 }
 

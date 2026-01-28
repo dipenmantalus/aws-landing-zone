@@ -168,7 +168,7 @@ resource "aws_iam_role" "datasync_dest_asssume_role" {
                     "aws:SourceAccount": "${var.billing_acc_id}"
                 },
                 "ArnLike": {
-                    "aws:SourceArn": "arn:aws:datasync:${data.aws_region.current.name}:${var.billing_acc_id}:*"
+                    "aws:SourceArn": "arn:aws:datasync:${data.aws_region.current.id}:${var.billing_acc_id}:*"
                 }
             }
         }
@@ -283,7 +283,7 @@ data "aws_iam_policy_document" "management_account_s3" {
     condition {
       test     = "StringLike"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cur:${data.aws_region.current.name}:${var.management_acc_id}:definition/*"]
+      values   = ["arn:aws:cur:${data.aws_region.current.id}:${var.management_acc_id}:definition/*"]
     }
   }
   statement {
@@ -299,7 +299,7 @@ data "aws_iam_policy_document" "management_account_s3" {
     condition {
       test     = "StringLike"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cur:${data.aws_region.current.name}:${var.management_acc_id}:definition/*"]
+      values   = ["arn:aws:cur:${data.aws_region.current.id}:${var.management_acc_id}:definition/*"]
     }
 
   }
@@ -372,6 +372,7 @@ resource "aws_datasync_location_s3" "source_location" {
 
 resource "aws_datasync_location_s3" "destination_location" {
   count         = var.enabled ? 1 : 0
+  depends_on    = [aws_s3_bucket_policy.allow_access_from_another_account]
   s3_bucket_arn = data.aws_s3_bucket.destination_bkt.arn
   subdirectory  = var.dest_bkt_subdir
 
@@ -382,6 +383,7 @@ resource "aws_datasync_location_s3" "destination_location" {
 
 resource "aws_datasync_task" "example" {
   count                    = var.enabled ? 1 : 0
+  depends_on               = [aws_datasync_location_s3.destination_location, aws_s3_bucket_policy.allow_access_from_another_account]
   destination_location_arn = aws_datasync_location_s3.destination_location[count.index].arn
   name                     = var.datasync_taskname
   source_location_arn      = aws_datasync_location_s3.source_location[count.index].arn

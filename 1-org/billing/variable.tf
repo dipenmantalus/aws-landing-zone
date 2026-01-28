@@ -24,7 +24,7 @@ variable "billing_additional_artifacts" {
 
 variable "billing_s3_prefix" {
   type        = string
-  default     = ""
+  default     = "cur-reports"
   description = "S3 prefix if needed."
 }
 

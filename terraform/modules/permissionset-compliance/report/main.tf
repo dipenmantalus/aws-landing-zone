@@ -25,7 +25,7 @@ data "aws_s3_bucket" "auditlog_bkt" {
 
 ## IAM Policy and Role For Lambda
 resource "aws_iam_role" "log_exporter" {
-  name = "${local.lambda_function_name}_${data.aws_region.current.name}_IAM_Role"
+  name = "${local.lambda_function_name}_${data.aws_region.current.id}_IAM_Role"
 
   assume_role_policy = <<EOF
 {
@@ -49,7 +49,7 @@ data "aws_caller_identity" "shared_service" {
 }
 
 resource "aws_iam_role_policy" "log_exporter" {
-  name = "${local.lambda_function_name}_${data.aws_region.current.name}_IAM_Policy"
+  name = "${local.lambda_function_name}_${data.aws_region.current.id}_IAM_Policy"
   role = aws_iam_role.log_exporter.id
 
   policy = <<EOF
@@ -94,7 +94,7 @@ resource "aws_iam_role_policy" "log_exporter" {
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${local.lambda_function_name}_${data.aws_region.current.name}:*",
+      "Resource": "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${local.lambda_function_name}_${data.aws_region.current.id}:*",
       "Effect": "Allow"
     },
     {
@@ -214,7 +214,7 @@ data "aws_iam_policy_document" "auditlogs" {
 ######################
 resource "aws_lambda_function" "log_exporter" {
   filename         = data.archive_file.log_exporter.output_path
-  function_name    = "${local.lambda_function_name}_${data.aws_region.current.name}"
+  function_name    = "${local.lambda_function_name}_${data.aws_region.current.id}"
   role             = aws_iam_role.log_exporter.arn
   handler          = "permissionset-report.lambda_handler"
   source_code_hash = data.archive_file.log_exporter.output_base64sha256
@@ -226,7 +226,7 @@ resource "aws_lambda_function" "log_exporter" {
     variables = {
       S3_BUCKET           = var.permissionset_report_bucket,
       AWS_ACCOUNT         = data.aws_caller_identity.current.account_id
-      REGION              = data.aws_region.current.name
+      REGION              = data.aws_region.current.id
       SES_SENDER_EMAIL    = var.ses_sender_email
       SES_RECIPIENT_EMAIL = local.ses_recipient_email_string
       SES_ROLE_ARN        = "arn:aws:iam::${data.aws_caller_identity.shared_service.account_id}:role/prmset_report_ses_cross_account_IAM_Role"
@@ -235,7 +235,7 @@ resource "aws_lambda_function" "log_exporter" {
 }
 
 resource "aws_cloudwatch_event_rule" "log_exporter" {
-  name                = "${local.lambda_function_name}_event_rule_${data.aws_region.current.name}"
+  name                = "${local.lambda_function_name}_event_rule_${data.aws_region.current.id}"
   description         = "Fires periodically to export logs to S3"
   schedule_expression = "cron(0 0 1 * ? *)"
 }

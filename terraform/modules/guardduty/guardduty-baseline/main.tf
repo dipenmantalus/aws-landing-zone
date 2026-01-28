@@ -17,25 +17,37 @@ resource "aws_guardduty_detector" "MyDetector" {
   enable                       = true
   finding_publishing_frequency = var.gd_finding_publishing_frequency
 
-  # Additional setting to turn on S3 Protection
-  datasources {
-    s3_logs {
-      enable = true
-    }
-    kubernetes {
-      audit_logs {
-        enable = true
-      }
-    }
-    malware_protection {
-      scan_ec2_instance_with_findings {
-        ebs_volumes {
-          enable = true
-        }
-      }
-    }
-  }
   tags = var.tags
+}
+
+# Enable S3 Protection feature
+resource "aws_guardduty_detector_feature" "s3_protection" {
+  provider = aws.dst
+  count    = var.enabled ? 1 : 0
+
+  detector_id = aws_guardduty_detector.MyDetector[0].id
+  name        = "S3_DATA_EVENTS"
+  status      = "ENABLED"
+}
+
+# Enable Kubernetes audit logs feature
+resource "aws_guardduty_detector_feature" "kubernetes_audit_logs" {
+  provider = aws.dst
+  count    = var.enabled ? 1 : 0
+
+  detector_id = aws_guardduty_detector.MyDetector[0].id
+  name        = "EKS_AUDIT_LOGS"
+  status      = "ENABLED"
+}
+
+# Enable EBS malware protection feature
+resource "aws_guardduty_detector_feature" "ebs_malware_protection" {
+  provider = aws.dst
+  count    = var.enabled ? 1 : 0
+
+  detector_id = aws_guardduty_detector.MyDetector[0].id
+  name        = "EBS_MALWARE_PROTECTION"
+  status      = "ENABLED"
 }
 
 
@@ -57,7 +69,7 @@ resource "aws_guardduty_organization_configuration" "MyGDOrg" {
   depends_on = [aws_guardduty_organization_admin_account.MyGDOrgDelegatedAdmin]
   count      = var.enabled ? 1 : 0
 
-  auto_enable = true
+  auto_enable_organization_members = "ALL"
   #  detector_id = "eec2e25be5d4f10692bf6fe4d2391d1e"
   detector_id = aws_guardduty_detector.MyDetector[0].id
 

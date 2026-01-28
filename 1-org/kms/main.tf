@@ -22,7 +22,7 @@ module "s3buckets_kmskey" {
         "kms:GenerateDataKey*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
       principals = [
         {
@@ -39,7 +39,7 @@ module "s3buckets_kmskey" {
         "kms:GenerateDataKey*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
       principals = [
         {
@@ -58,7 +58,7 @@ module "s3buckets_kmskey" {
         "kms:Describe*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
 
       principals = [
@@ -94,7 +94,7 @@ module "s3buckets_kmskey" {
         "kms:*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
 
       principals = [
@@ -250,7 +250,7 @@ module "cloudtrail_kmskey" {
         "kms:DescribeKey*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
       principals = [
         {
@@ -274,7 +274,7 @@ module "cloudtrail_kmskey" {
         "kms:Describe*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
 
       principals = [
@@ -292,7 +292,7 @@ module "cloudtrail_kmskey" {
         "kms:*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
 
       principals = [
@@ -333,7 +333,7 @@ module "sns_kmskey" {
         "kms:DescribeKey*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
       principals = [
         {
@@ -355,7 +355,7 @@ module "sns_kmskey" {
         "kms:DescribeKey*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
       principals = [
         {
@@ -375,7 +375,7 @@ module "sns_kmskey" {
         "kms:*"
       ]
       resources = [
-        "arn:aws:kms:${data.aws_region.current.name}:${local.account_id_shared_services}:key/*"
+        "arn:aws:kms:${data.aws_region.current.id}:${local.account_id_shared_services}:key/*"
       ]
 
       principals = [

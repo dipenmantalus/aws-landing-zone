@@ -167,7 +167,7 @@ resource "aws_iam_role" "datasync_dest_asssume_role" {
                     "aws:SourceAccount": "${var.operationallogs_acc_id}"
                 },
                 "ArnLike": {
-                    "aws:SourceArn": "arn:aws:datasync:${data.aws_region.current.name}:${var.operationallogs_acc_id}:*"
+                    "aws:SourceArn": "arn:aws:datasync:${data.aws_region.current.id}:${var.operationallogs_acc_id}:*"
                 }
             }
         }

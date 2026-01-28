@@ -11,7 +11,7 @@ locals {
   account_id  = data.aws_caller_identity.current.account_id
   bucket_name = var.bucket_name == null ? "${local.account_id}-${local.region}-${var.bucket_suffix}" : var.bucket_name
   partition   = data.aws_partition.current.partition
-  region      = data.aws_region.current.name
+  region      = data.aws_region.current.id
 
   logging = var.logging_bucket == null ? [] : [{
     bucket = var.logging_bucket

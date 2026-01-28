@@ -223,7 +223,7 @@ resource "aws_s3_bucket_public_access_block" "pipeline_buckets" {
 }
 
 resource "aws_s3_bucket" "aws-infracicd-tf-states" {
-  bucket              = "aws-infracicd-tf-states"
+  bucket              = "aws-infracicd-tf-states-${var.account_id}"
   object_lock_enabled = var.object_lock_enabled
 }
 

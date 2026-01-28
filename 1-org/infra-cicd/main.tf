@@ -16,7 +16,7 @@ module "setup_cicd_account" {
 
   codebuild_image = var.codebuild_image
 
-  pipeline_deployment_bucket_name = local.lz_config.org.infra_cicd.git_repo_name
+  pipeline_deployment_bucket_name = "${local.lz_config.org.infra_cicd.git_repo_name}-${local.account_id_infra_cicd}"
   account_id                      = local.account_id_infra_cicd
   shared_service_acc_id           = local.account_id_shared_services
   assume_role_name                = local.lz_config.global.switch_role_to_assume
