@@ -163,7 +163,11 @@ network:
   dnshub:
     resolver:
       domain_name: "example.internal"                            # Please enter the Domain Name
-      ips: []                                              # Please specify the Resolver IP address and port numbers
+      ips:                                                       # Dummy IPs for testing - update with actual DNS servers later
+        - ip: "10.15.0.10"
+          port: 53
+        - ip: "10.15.0.11"
+          port: 53
     securitylogging:
       enabled: false                                      # Specify true or false to indicate whether you want to deploy security logging(route53).
       log_name: "route53_log"                            # Provide the name for the securtiy log (route53)

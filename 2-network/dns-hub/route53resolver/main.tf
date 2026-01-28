@@ -21,7 +21,7 @@ module "outbound-resolver" {
   security_group_ids = [data.terraform_remote_state.dnshub_vpc.outputs.custom_vpc_security_group_id]
   subnets            = data.terraform_remote_state.dnshub_vpc.outputs.private_subnets
   vpc_ids            = [data.terraform_remote_state.dnshub_vpc.outputs.vpc_id]
-  create_rule        = false  # Disabled until target IPs are configured
+  create_rule        = var.create_rule
   target_ips         = local.lz_config.network.dnshub.resolver.ips
   rule_type          = var.rule_type
   domain_name        = local.lz_config.network.dnshub.resolver.domain_name
