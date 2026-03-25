@@ -1,17 +1,17 @@
 global:
   home_region: "ap-southeast-2"                          # Home region for AWS LZ deployment 
-  lz_state_bucket: "aws-lz-state-bucket-dp"                 # Name for AWS LZ Terraform State bucket
-  lz_state_locking_dynamodb_table: "aws-lz-state-lock-dp"   # Name of DyanmoDB table for terraform state Locking
+  lz_state_bucket: "aws-lz-state-bucket-dpt"                 # Name for AWS LZ Terraform State bucket
+  lz_state_locking_dynamodb_table: "aws-lz-state-lock-dpt"   # Name of DyanmoDB table for terraform state Locking
   switch_role_to_assume: "OrganizationAccountAccessRole" # Name of the Role to Assume to Deploy AWS LZ services in Accounts
 bootstrap:
   bootstrap_ou_name: "Bootstrap"                         # Bootstrap OU name
   bootstrap_account_name: "LZ CICD"                      # LZ CICD Account Name
-  bootstrap_account_email: "dipen.parekh+20@mantalus.com"                            # example: test_at_ollion_com
+  bootstrap_account_email: "dipenparekh225+520@gmail.com"                            # example: test_at_ollion_com
   cicd:
     git_repo_id: "dipenmantalus/aws-landing-zone"            # AWS LZ Github Repository ID
     git_repo_name: "aws-landing-zone"                    # AWS LZ Github Repository Name
-    git_branch: "config-setup-mlz"                                   # AWS LZ Github Repository Branch
-    s3_bucket_prefix: "aws-lz-dp"                 # S3 Bucket Prefix for AWS LZ Terraform State Bucket
+    git_branch: "config-setup-demo"                                   # AWS LZ Github Repository Branch
+    s3_bucket_prefix: "aws-lz-dpt"                 # S3 Bucket Prefix for AWS LZ Terraform State Bucket
 org:
   common:
     target_regions:
@@ -21,15 +21,15 @@ org:
       default_retention_mode: "COMPLIANCE"               # Object Lock Retention Mode [Only applicable if object_lock_enabled is set to true ]
       default_retention_days: 11                         # Number of days that you want to specify for the default Object Lock retention period. [Only applicable if object_lock_enabled is set to true ]
   logging:
-    s3_bucket_prefix: "logging-aws-lz-dp"         # s3 Bucket Prefix for all Logging Buckets Created in AWS LZ
+    s3_bucket_prefix: "logging-aws-lz-dpt"         # s3 Bucket Prefix for all Logging Buckets Created in AWS LZ
     standard_ia_days: 30                                 # Retention to move s3 object to Standard IA
     glacier_days: 60                                     # Retention to move s3 object from Standard IA To Glacier
   shared_services:
-    ses_sender_email_address: "dipen.parekh@mantalus.com"                         # example: test_at_ollion_com
+    ses_sender_email_address: "dipenparekh225@gmail.com"                         # example: test_at_ollion_com
     ses_recipients_email_addresses:
-      - "dipen.parekh+21@mantalus.com"                                               # example: test_at_ollion_com
+      - "dipenparekh225+521@gmail.com"                                               # example: test_at_ollion_com
     sns_recipients_email_addresses:
-      - "dipen.parekh+21@mantalus.com"                                               # example: test_at_ollion_com
+      - "dipenparekh225+521@gmail.com"                                               # example: test_at_ollion_com
   billing:
     report_name: "main-report"                           # Name of the Cost and Usage Report 
     time_unit: "HOURLY"                                  # Frequency on which report data should be measured and displayed.
@@ -52,18 +52,18 @@ org:
     enable_pci_dss_standard: true                        # Whether want to enable pci_dss_standard on security hub for all the accounts
     enable_nist_standard: true                           # Whether want to enable nist_standard on security hub for all the accounts
   permission_sets_principal:
-    cto_operations_group: "dipen.parekh+21@mantalus.com"                             # DL for CTO operations group
-    cto_core_networking_operations_group: "dipen.parekh+21@mantalus.com"             # DL for CTO core networking operations group
-    cto_security_operations_group: "dipen.parekh+21@mantalus.com"                    # DL for CTO security operations group
-    cto_elevated_security_operations_group: "dipen.parekh+21@mantalus.com"           # DL for CTO elevated security operations group
-    audit_and_compliance_operations_group: "dipen.parekh+21@mantalus.com"            # DL for CTO audit compliance operations group
-    cto_build_group: "dipen.parekh+21@mantalus.com"                                  # DL for CTO build group
-    cto_core_networking_build_group: "dipen.parekh+21@mantalus.com"                  # DL for CTO core networking build group
-    organization_admin: "dipen.parekh+21@mantalus.com"                               # DL for organization admin
-    cto_elevated_security_build_group: "dipen.parekh+21@mantalus.com"                # DL for CTO elevated security build group
-    cto_security_build_group: "dipen.parekh+21@mantalus.com"                         # DL for CTO security build group
-    cto_build_group2: "dipen.parekh+21@mantalus.com"                                 # DL for CTO build group 2
-    cfo: "dipen.parekh+21@mantalus.com"                                              # DL for CFO
+    cto_operations_group: "dipenparekh225+521@gmail.com"                             # DL for CTO operations group
+    cto_core_networking_operations_group: "dipenparekh225+521@gmail.com"             # DL for CTO core networking operations group
+    cto_security_operations_group: "dipenparekh225+521@gmail.com"                    # DL for CTO security operations group
+    cto_elevated_security_operations_group: "dipenparekh225+521@gmail.com"           # DL for CTO elevated security operations group
+    audit_and_compliance_operations_group: "dipenparekh225+521@gmail.com"            # DL for CTO audit compliance operations group
+    cto_build_group: "dipenparekh225+521@gmail.com"                                  # DL for CTO build group
+    cto_core_networking_build_group: "dipenparekh225+521@gmail.com"                  # DL for CTO core networking build group
+    organization_admin: "dipenparekh225+521@gmail.com"                               # DL for organization admin
+    cto_elevated_security_build_group: "dipenparekh225+521@gmail.com"                # DL for CTO elevated security build group
+    cto_security_build_group: "dipenparekh225+521@gmail.com"                         # DL for CTO security build group
+    cto_build_group2: "dipenparekh225+521@gmail.com"                                 # DL for CTO build group 2
+    cfo: "dipenparekh225+521@gmail.com"                                              # DL for CFO
   org_hierarchy:
     common:
       name: "Common"                                     # Common OU name
@@ -71,30 +71,30 @@ org:
       accounts:
         audit_account:
           name: "Audit Logs"                             # Name of the Audit Logs Account
-          email:  "dipen.parekh+22@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+522@gmail.com"          # example: test_at_ollion_com
           scps:                                          # List of SCPS to apply for Audit Logs Account
             - "denyS3Modification"
         billing_account:
           name: "Billing"                                # Name of the Billing Account
-          email:  "dipen.parekh+23@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+523@gmail.com"          # example: test_at_ollion_com
           scps:                                          # List of SCPS to apply for Billing ACcount
             - "denyS3Modification"
         security_logs_account: 
           name: "Security Logs"                          # Name of the Security Logs Account
-          email:  "dipen.parekh+24@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+524@gmail.com"          # example: test_at_ollion_com
           scps:                                          # List of SCPS to apply for Security Logs Account
             - "denyS3Modification"
         security_tools_account:    
           name: "Security Tools"                         # Name of the Security Tools Account
-          email:  "dipen.parekh+25@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+525@gmail.com"          # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for Security Tools Account
         operational_logs_account:  
           name: "Operational Logs"                       # Name of the Operational Logs Account
-          email:  "dipen.parekh+26@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+526@gmail.com"          # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for Operationl Logs Account
         infra_ci_cd_account:    
           name: "Infra CI/CD"                            # Name of the INFRACICD Logs Account
-          email:  "dipen.parekh+27@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+527@gmail.com"          # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for Infra CICD Account
     infrastructure:                        
       name: "Infrastructure"                             # Infrastructure OU name
@@ -102,23 +102,23 @@ org:
       accounts:
         network_hub_account:
           name: "Network Hub"                            # Name of the INFRACICD Logs Account
-          email:  "dipen.parekh+28@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+528@gmail.com"          # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for Network Hub Account
         dns_hub_account:
           name: "DNS Hub"                                # Name of the DNS HUB Account
-          email:  "dipen.parekh+29@mantalus.com"          # example: test_at_ollion_com
+          email:  "dipenparekh225+529@gmail.com"          # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for DNS Hub Account
         high_trust_interconnect_account:
           name: "High Trust Interconnect"                # Name of the High Trust Interconnect Account
-          email:  "dipen.parekh+30@mantalus.com"                                     # example: test_at_ollion_com
+          email:  "dipenparekh225+530@gmail.com"                                     # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for High Trust Interconnect Account
         no_trust_interconnect_account:
           name: "No Trust Interconnect"                  # Name of the No Trust Interconnect Account
-          email:  "dipen.parekh+31@mantalus.com"                                     # example: test_at_ollion_com
+          email:  "dipenparekh225+531@gmail.com"                                     # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for No Trust Interconnect Account
         shared_services_account:
           name: "Shared Services"                        # Name of the Shared Services Account
-          email:  "dipen.parekh+32@mantalus.com"                                     # example: test_at_ollion_com
+          email:  "dipenparekh225+532@gmail.com"                                     # example: test_at_ollion_com
           scps: []                                       # List of SCPS to apply for Shared Services Account
     application:
       name: "Application"                                # Application OU name
@@ -129,11 +129,11 @@ org:
         accounts:
           dev_master_account:
             name: "Dev Master"                           # Name of the Dev Master Account
-            email:  "dipen.parekh+33@mantalus.com"       # example: test_at_ollion_com
+            email:  "dipenparekh225+533@gmail.com"       # example: test_at_ollion_com
             scps: []                                     # List of SCPS to apply for Dev Master Account
           bu1_app_dev_account:
             name: "BU1 App Dev"                          # Name of the BU1 App Dev Account
-            email:  "dipen.parekh+34@mantalus.com"       # example: test_at_ollion_com
+            email:  "dipenparekh225+534@gmail.com"       # example: test_at_ollion_com
             scps: []                                     # List of SCPS to apply for BU1 App Dev Account
       prod: 
         name: "Prod"                                     # Production OU name
@@ -141,11 +141,11 @@ org:
         accounts:
           prod_master_account:            
             name: "Prod Master"                          # Name of the Prod Master Account
-            email:  "dipen.parekh+35@mantalus.com"       # example: test_at_ollion_com
+            email:  "dipenparekh225+535@gmail.com"       # example: test_at_ollion_com
             scps: []                                     # List of SCPS to apply for Prod Master Account
           bu1_app_prod_account:
             name: "BU1 App Prod"                         # Name of the BU1 App Prod Account
-            email:  "dipen.parekh+36@mantalus.com"       # example: test_at_ollion_com
+            email:  "dipenparekh225+536@gmail.com"       # example: test_at_ollion_com
             scps: []                                     # List of SCPS to apply for BU1 App Prod Account
       staging:
         name: "Staging"                                  # Staging OU name
@@ -153,11 +153,11 @@ org:
         accounts:
           stg_master_account:
             name: "Staging Master"                       # Name of the Staging Master Account
-            email:  "dipen.parekh+37@mantalus.com"       # example: test_at_ollion_com
+            email:  "dipenparekh225+537@gmail.com"       # example: test_at_ollion_com
             scps: []                                     # List of SCPS to apply for Staging Master Account
           bu1_app_stg_account:
             name: "BU1 App Staging"                      # Name of the BU1 App Staging Account
-            email:  "dipen.parekh+38@mantalus.com"       # example: test_at_ollion_com
+            email:  "dipenparekh225+538@gmail.com"       # example: test_at_ollion_com
             scps: []                                     # List of SCPS to apply for BU1 App Staging Account
 network:
   dnshub:
